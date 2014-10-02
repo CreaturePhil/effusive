@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .row
+    .col-md-4
+      img.avatar.center-block(src="#{User.profile.avatar || User.gravatar()}" alt="avatar profile")
+    .col-md-8
+      h1= User.username
+      h3 Joined on #{moment(User.joinDate).format('MMMM D, YYYY')}
+    if User.profile.location
+      h4 Location: #{User.profile.location}
+    if User.profile.location
+      a(href="#{User.profile.website}")= User.profile.website
+    if User.profile.bio
+      p= User.profile.bio

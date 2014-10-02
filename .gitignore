@@ -1,0 +1,8 @@
+# Dependency directory
+node_modules
+
+# Logs
+npm-debug.log
+
+# Application's secrets
+config/secrets.js

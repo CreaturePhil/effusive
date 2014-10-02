@@ -1,0 +1,28 @@
+.navbar-nav img {
+  width: 30px;
+  height: 30px;
+  margin: -15px 15px -15px;
+}
+
+.space-bottom-20 {
+  padding-bottom: 20px;
+}
+
+.space-bottom-50 {
+  padding-bottom: 50px;
+}
+
+.avatar {
+  width: 10em;
+  height: auto;
+}
+
+.intro-header {
+  margin-top: -20px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  color: #f8f8f8;
+  background: #34495e no-repeat center center;
+  background-size: cover;
+}
