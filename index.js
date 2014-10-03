@@ -77,10 +77,7 @@ app.use(function(req, res, next) {
 app.use(function(req, res, next) {
   // Make user object available in templates.
   res.locals.user = req.user;
-  next();
-});
 
-app.use(function(req, res, next) {
   // Make moment object available in templates.
   res.locals.moment = moment;
   next();
