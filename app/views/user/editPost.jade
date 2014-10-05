@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .page-header
+    h1 Edit Post
+  form(role="form" method="post")
+    input(type="hidden" name="_csrf" value=_csrf)
+    .form-group
+      label Title
+      input.form-control(type="text" name="title" value="#{post.title}" required)
+    .form-group
+      label Content
+      textarea.form-control(type="text" rows="10" name="content" required)= post.body
+    .form-group
+      button.btn.btn-primary.center-block(type="submit") Save changes

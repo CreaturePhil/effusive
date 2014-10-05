@@ -1,6 +1,30 @@
 extends ../layout
 
 block content
-  h1= post.title
-  h3 Posted on #{moment(post.date).format('MMMM D, YYYY')} by #{post.author}
-  p= post.body
+  h2
+    strong= post.title
+  h6.text-muted 
+    | Posted <mark>#{moment(post.date).fromNow()}</mark>
+    | on #{moment(post.date).format('MMMM D, YYYY')}
+    if post.editDate
+      | * (modified #{moment(post.editDate).fromNow()} on #{moment(post.editDate).format('MMMM D, YYYY')})
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-md-2.text-center
+          img(src="#{user.profile.avatar || user.gravatar()}" alt="User's profile avatar" width="100" height="100") 
+          h4
+            a(href="/#{post.author}")= post.author
+        .col-md-10
+          p= post.body
+      .row.text-right
+        .col-md-12
+          a(href="/#{post.author}/#{post.getHash()}/#{post.turl}/edit").text-muted edit
+  h4 All #{post.comments.length} comments
+  hr
+  form(role="form" method="post")
+    input(type="hidden" name="_csrf" value=_csrf)
+    .form-group
+      textarea.form-control(name="comment" placeholder="Leave a comment" rows="3" required)
+    .form-group
+      button.btn.btn-primary.pull-right(type="submit") Post

@@ -1,3 +1,4 @@
+var moment = require('moment');
 var User = require('../models/User');
 var Post = require('../models/Post');
 var secrets = require('../../config/secrets');
@@ -134,14 +135,46 @@ exports.getUserProfile = function(req, res, next) {
 
 // Get user's post
 exports.getUserPost = function(req, res, next) {
-  User.findOne({ uid: req.params.user.toLowerCase() }, function(err, user) {
-    if (err || !user) return next(err);
-    Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
-      if (err) return next(err);
-      res.render('user/post', {
-        title: post.title,
-        post: post
-      });
+  Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
+    if (err) return next(err);
+    res.render('user/post', {
+      title: post.title,
+      post: post
     });
-  }); 
+  });
+};
+
+/**
+ * Route /:user/:hash/:title/edit
+ * --------------------
+ */
+
+// Get user's post to edit
+exports.getEditPost = function(req, res, next) {
+  Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
+    if (err) return next(err);
+    res.render('user/editPost', {
+      title: post.title,
+      post: post
+    });
+  });
+};
+
+// Save changes on editted post
+exports.postEditPost = function(req, res, next) {
+  Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
+    if (err) return next(err);
+
+    post.turl = req.body.title.replace(/[^a-z0-9 ]/gi, '').replace(/ /gi, '-');
+    post.title = req.body.title;
+    post.body = req.body.content;
+    post.editDate = moment();
+
+    post.save(function(err, post) {
+      if (err) return next(err); 
+      req.flash('success', { msg: 'Post succesfully edited.' });
+      var url = ['', post.author, post.getHash(), post.turl];
+      res.redirect(url.join('/'));
+    });
+  });
 };

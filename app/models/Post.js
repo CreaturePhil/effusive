@@ -8,6 +8,7 @@ var postSchema = new mongoose.Schema({
   title: String,
   author: String,
   date: Date,
+  editDate: Date,
   body: String,
   comments: []
 });

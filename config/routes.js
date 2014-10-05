@@ -48,4 +48,8 @@ router.route('/:user/:hash/:title')
   .get(userController.getUserPost);
   // add a edit functionality for post
 
+router.route('/:user/:hash/:title/edit')
+  .get(userController.getEditPost)
+  .post(userController.postEditPost);
+
 module.exports = router;

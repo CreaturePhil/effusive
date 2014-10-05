@@ -8,7 +8,7 @@ var userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true },
   password: String,
   joinDate: Date,
-  posts: [],
+  posts: [], // post's ids not hashes
 
   profile: {
     bio: { type: String, default: '' },
