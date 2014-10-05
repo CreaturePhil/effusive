@@ -1,0 +1,6 @@
+extends ../layout
+
+block content
+  h1= post.title
+  h3 Posted on #{moment(post.date).format('MMMM D, YYYY')} by #{post.author}
+  p= post.body

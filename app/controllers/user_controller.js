@@ -1,4 +1,8 @@
 var User = require('../models/User');
+var Post = require('../models/Post');
+var secrets = require('../../config/secrets');
+var Hashids = require('hashids');
+var hashids = new Hashids(secrets.hashidSecret);
 
 /**
  * Route /settings/account
@@ -108,22 +112,36 @@ exports.postDeleteAccount = function(req, res, next) {
 };
 
 /**
- * Route /*
+ * Route /:user
  * --------------------
  */
 
 // Get user profile
 exports.getUserProfile = function(req, res, next) {
   User.findOne({ uid: req.params.user.toLowerCase() }, function(err, user) {
-    if (user) {
-      res.render('user/profile', {
-        title: user.username,
-        User: user
+    if (err || !user) return next(err);
+    res.render('user/profile', {
+      title: user.username,
+      User: user
+    });
+  }); 
+};
+
+/**
+ * Route /:user/:hash/:title
+ * --------------------
+ */
+
+// Get user's post
+exports.getUserPost = function(req, res, next) {
+  User.findOne({ uid: req.params.user.toLowerCase() }, function(err, user) {
+    if (err || !user) return next(err);
+    Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
+      if (err) return next(err);
+      res.render('user/post', {
+        title: post.title,
+        post: post
       });
-    } else {
-      var err = new Error('Page Not Found');
-      err.status = 404;
-      return next(err);
-    }
+    });
   }); 
 };

@@ -1,0 +1,19 @@
+#postModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='postModalLabel', aria-hidden='true')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal')
+          span(aria-hidden='true') &times;
+          span.sr-only Close
+        h4#postModalLabel.modal-title Make a post
+      .modal-body
+        form(role="form" action="/" method="post")
+          input(type="hidden" name="_csrf" value=_csrf)
+          .form-group
+            label Title
+            input.form-control(type="text" name="title" placeholder="Title" required)
+          .form-group
+            label Content
+            textarea.form-control(name="content" rows="3" placeholder="Put stuff here" required)
+          .form-group
+            button.btn.btn-primary.center-block(type="submit") Post

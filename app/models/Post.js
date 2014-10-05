@@ -4,16 +4,12 @@ var Hashids = require('hashids');
 var hashids = new Hashids(secrets.hashidSecret);
 
 var postSchema = new mongoose.Schema({
+  turl: { type: String, lowercase: true },
   title: String,
   author: String,
   date: Date,
   body: String,
-  comments: [{ 
-    cid: { type: String, unique: true },
-    body: String,
-    date: Date, 
-    author: String 
-  }]
+  comments: []
 });
 
 /**

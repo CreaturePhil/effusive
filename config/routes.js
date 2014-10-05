@@ -7,7 +7,8 @@ var userController = require('../app/controllers/user_controller');
 var router = express.Router();
 
 router.route('/')
-  .get(homeController.getIndex);
+  .get(homeController.getIndex)
+  .post(passportConf.isAuthenticated, homeController.postUserPost);
 
 router.route('/signup')
   .get(authController.getSignup)
@@ -42,5 +43,9 @@ router.route('/settings/delete')
 
 router.route('/:user')
   .get(userController.getUserProfile);
+
+router.route('/:user/:hash/:title')
+  .get(userController.getUserPost);
+  // add a edit functionality for post
 
 module.exports = router;
