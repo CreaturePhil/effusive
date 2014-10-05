@@ -137,9 +137,13 @@ exports.getUserProfile = function(req, res, next) {
 exports.getUserPost = function(req, res, next) {
   Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
     if (err) return next(err);
-    res.render('user/post', {
-      title: post.title,
-      post: post
+    User.findOne({ username: post.author }, function(err, user) {
+      if (err) return next(err);
+      res.render('user/post', {
+        title: post.title,
+        post: post,
+        User: user
+      });
     });
   });
 };
@@ -151,6 +155,10 @@ exports.getUserPost = function(req, res, next) {
 
 // Get user's post to edit
 exports.getEditPost = function(req, res, next) {
+  if (req.user.uid !== req.params.user.toLowerCase()) {
+    var url = ['', req.params.user, req.params.hash, req.params.title];
+    return res.redirect(url.join('/'));
+  }
   Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
     if (err) return next(err);
     res.render('user/editPost', {
@@ -162,6 +170,10 @@ exports.getEditPost = function(req, res, next) {
 
 // Save changes on editted post
 exports.postEditPost = function(req, res, next) {
+  if (req.user.uid !== req.params.user.toLowerCase()) {
+    var url = ['', req.params.user, req.params.hash, req.params.title];
+    return res.redirect(url.join('/'));
+  }
   Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
     if (err) return next(err);
 
