@@ -1,4 +1,5 @@
 var moment = require('moment');
+var crypto = require('crypto');
 var User = require('../models/User');
 var Post = require('../models/Post');
 var secrets = require('../../config/secrets');
@@ -143,6 +144,32 @@ exports.getUserPost = function(req, res, next) {
         title: post.title,
         post: post,
         User: user
+      });
+    });
+  });
+};
+
+// Post user's comment
+exports.postComment = function(req, res, next) {
+  Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
+    if (err) return next(err);
+    User.findById(req.user.id, function(err, user) {
+      crypto.randomBytes(6, function(err, buf) {
+        var token = buf.toString('hex');
+        var comment = {
+          cid: token,
+          avatar: user.profile.avatar || user.gravatar(),
+          aid: user.uid,
+          author: user.username,
+          date: moment()._d,
+          content: req.body.comment 
+        };
+        post.comments.push(comment);
+        post.save(function(err) {
+          if (err) return next(err);
+          var url = ['', post.author, post.getHash(), post.turl];
+          res.redirect(url.join('/'));
+        });
       });
     });
   });

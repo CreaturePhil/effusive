@@ -45,8 +45,8 @@ router.route('/:user')
   .get(userController.getUserProfile);
 
 router.route('/:user/:hash/:title')
-  .get(userController.getUserPost);
-  // add a edit functionality for post
+  .get(userController.getUserPost)
+  .post(passportConf.isAuthenticated, userController.postComment);
 
 router.route('/:user/:hash/:title/edit')
   .get(userController.getEditPost)
