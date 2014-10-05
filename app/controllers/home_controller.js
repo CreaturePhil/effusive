@@ -1,6 +1,9 @@
 var moment = require('moment');
 var User = require('../models/User');
 var Post = require('../models/Post');
+var secrets = require('../../config/secrets');
+var Hashids = require('hashids');
+var hashids = new Hashids(secrets.hashidSecret);
 
 /**
  * Route /
@@ -14,8 +17,19 @@ exports.getIndex = function(req, res) {
       title: 'Home'
     });
   } else {
-    res.render('dashboard', {
-      title: 'Home'
+    User.findById(req.user.id, function(err, user) {
+      if (err) return next(err);
+      Post.find({
+        '_id': { 
+          $in: user.posts
+        }
+      }, function(err, posts) {
+        if (err) return next(err);
+        res.render('dashboard', {
+          title: 'Home',
+          posts: posts
+        });
+      });
     });
   }
 };
@@ -39,8 +53,9 @@ exports.postUserPost = function(req, res, next) {
         if (err) return next(err);
         req.flash('success', { msg: 'Post sucessfully posted!' });
 
-        var url = ['', req.user.username, post.getHash(), post.turl];
-        res.redirect(url.join('/'));
+//        var url = ['', req.user.username, post.getHash(), post.turl];
+//        res.redirect(url.join('/'));
+        res.redirect('/');
       });
     });
   });

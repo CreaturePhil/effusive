@@ -109,7 +109,7 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     res.render('error', {
       title: 'Page not found',
-      message: err.message,
+      messages: err.message,
       error: err
     });
   });
@@ -121,7 +121,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     title: 'Page not found',
-    message: err.message,
+    messages: err.message,
     error: {}
   });
 });
