@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  .page-header
+    h1 Edit Comment
+  form(role="form" method="post")
+    input(type="hidden" name="_csrf" value=_csrf)
+    .form-group
+      textarea.form-control(type="text" rows="10" name="content" required)= comment.content
+    .form-group
+      button.btn.btn-primary.pull-right(type="submit") Save changes

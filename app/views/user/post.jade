@@ -40,9 +40,12 @@ block content
               h4
                 a(href="/#{comment.author}")= comment.author
             .col-md-10
-              small.text-muted Posted #{moment(comment.date).fromNow()} on #{moment(comment.date).format('MMMM D, YYYY')}
+              small.text-muted 
+                | Posted #{moment(comment.date).fromNow()} on #{moment(comment.date).format('MMMM D, YYYY')}
+                if comment.editDate
+                  | * (modified #{moment(comment.editDate).fromNow()} on #{moment(comment.editDate).format('MMMM D, YYYY')})
               p= comment.content
           .row.text-right
             .col-md-12
               if user.uid === comment.aid
-                a(href="/#{post.author}/#{post.getHash()}/#{post.turl}/edit").text-muted edit
+                a(href="/#{post.author}/#{post.getHash()}/#{post.turl}/#{comment.cid}/edit").text-muted edit

@@ -49,7 +49,11 @@ router.route('/:user/:hash/:title')
   .post(passportConf.isAuthenticated, userController.postComment);
 
 router.route('/:user/:hash/:title/edit')
-  .get(userController.getEditPost)
-  .post(userController.postEditPost);
+  .get(passportConf.isAuthenticated, userController.getEditPost)
+  .post(passportConf.isAuthenticated, userController.postEditPost);
+
+router.route('/:user/:hash/:title/:comment/edit')
+  .get(passportConf.isAuthenticated, userController.getEditComment)
+  .post(passportConf.isAuthenticated, userController.postEditComment);
 
 module.exports = router;

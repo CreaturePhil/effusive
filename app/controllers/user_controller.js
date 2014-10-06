@@ -195,7 +195,7 @@ exports.getEditPost = function(req, res, next) {
   });
 };
 
-// Save changes on editted post
+// Save changes on edited post
 exports.postEditPost = function(req, res, next) {
   if (req.user.uid !== req.params.user.toLowerCase()) {
     var url = ['', req.params.user, req.params.hash, req.params.title];
@@ -215,5 +215,65 @@ exports.postEditPost = function(req, res, next) {
       var url = ['', post.author, post.getHash(), post.turl];
       res.redirect(url.join('/'));
     });
+  });
+};
+
+/**
+ * Route /:user/:hash/:title/:comment/edit
+ * --------------------
+ */
+
+// Get user's comment to edit
+exports.getEditComment = function(req, res, next) {
+  Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
+    if (err) return next(err);
+
+    var comments = post.comments;
+    var len = post.comments.length;
+
+    while(len--) {
+      if (req.params.comment === comments[len].cid) {
+        var comment = comments[len];
+        if (req.user.uid !== comment.aid) {
+          var url = ['', req.params.user, req.params.hash, req.params.title];
+          return res.redirect(url.join('/'));
+        }
+        res.render('user/editComment', {
+          title: post.title,
+          comment: comment
+        });
+      }
+    }
+  });
+};
+
+// Save changes on edited comment
+exports.postEditComment = function(req, res, next) {
+  Post.findById(hashids.decodeHex(req.params.hash), function(err, post) {
+    if (err) return next(err);
+
+    var comments = post.comments;
+    var len = post.comments.length;
+
+    while(len--) {
+      if (req.params.comment === comments[len].cid) {
+        var comment = comments[len];
+        if (req.user.uid !== comment.aid) {
+          var url = ['', req.params.user, req.params.hash, req.params.title];
+          return res.redirect(url.join('/'));
+        }
+        comment.content = req.body.content;  
+        comment.editDate = moment()._d;
+        
+        post.comments.splice(len, 1, comment);
+
+        post.save(function(err) {
+          if (err) return next(err);
+          req.flash('success', { msg: 'Comment succesfully edited.' });
+          var url = ['', post.author, post.getHash(), post.turl];
+          res.redirect(url.join('/'));
+        });
+      }
+    }
   });
 };
