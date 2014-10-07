@@ -55,7 +55,7 @@ block content
                   | * (modified #{moment(post.editDate).fromNow()} on #{moment(post.editDate).format('MMMM D, YYYY')})
               p.list-group-item-text= post.body.substr(0, 270) + (post.body.length >= 270 ? '...' : '')
               h6.text-danger
-                mark= post.comments.length + ' Comments' 
+                mark= post.comments.length + ' ' + (post.comments.length === 1 ? 'Comment' : 'Comments')
       else
         br
         h1.text-center #{User.username}'s has no posts.
