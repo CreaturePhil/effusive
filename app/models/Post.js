@@ -6,6 +6,7 @@ var hashids = new Hashids(secrets.hashidSecret);
 var postSchema = new mongoose.Schema({
   turl: { type: String, lowercase: true },
   title: String,
+  avatar: String,
   author: String,
   date: Date,
   editDate: Date,

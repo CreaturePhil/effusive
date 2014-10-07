@@ -47,6 +47,9 @@ exports.getIndex = function(req, res) {
         }
       }, function(err, posts) {
         if (err) return next(err);
+        posts.sort(function(a, b) {
+          return b.date - a.date;
+        });
         res.render('dashboard', {
           title: 'Home',
           posts: posts,
@@ -61,6 +64,7 @@ exports.postUserPost = function(req, res, next) {
   var post = new Post({
     turl: req.body.title.replace(/[^a-z0-9 ]/gi, '').replace(/ /gi, '-'),
     title: req.body.title,
+    avatar: req.user.profile.avatar || req.user.gravatar(),
     author: req.user.username,
     date: moment(),
     body: req.body.content
@@ -74,9 +78,6 @@ exports.postUserPost = function(req, res, next) {
       user.save(function(err) {
         if (err) return next(err);
         req.flash('success', { msg: 'Post sucessfully posted!' });
-
-//        var url = ['', req.user.username, post.getHash(), post.turl];
-//        res.redirect(url.join('/'));
         res.redirect('/');
       });
     });
