@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  if posts.length >= 0
+    .jumbotron
+      h1 Browse
+    .list-group
+      for post in posts
+        br
+        a.list-group-item(href="/#{post.author}/#{post.getHash()}/#{post.turl}")
+          h4.text-primary= post.title
+          h6.text-muted 
+            | Posted #{moment(post.date).fromNow()}
+            | on #{moment(post.date).format('MMMM D, YYYY')}
+            if post.editDate
+              | * (modified #{moment(post.editDate).fromNow()} on #{moment(post.editDate).format('MMMM D, YYYY')})
+          h6.text-danger
+            mark= post.comments.length + ' Comments' 
+  else
+    br
+    h1.text-center Somehow this is empty.

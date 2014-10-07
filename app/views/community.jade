@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  if users.length >= 0
+    .jumbotron
+      h1 Community
+    .list-group
+      for user in users
+        br
+        a.list-group-item(href="/#{user.username}")
+          .row
+            .col-md-2.text-center
+              img(src="#{user.profile.avatar || user.gravatar()}" alt="user's avatar" height="50" width="50")
+            .col-md-10
+              h4.text-primary= user.username
+              h6.text-muted Joined #{moment(user.joinDate).fromNow()}
+  else
+    br
+    h1.text-center Somehow this is empty.

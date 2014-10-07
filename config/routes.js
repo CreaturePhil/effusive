@@ -3,12 +3,19 @@ var passportConf = require('./passport');
 var homeController = require('../app/controllers/home_controller');
 var authController = require('../app/controllers/authentication_controller');
 var userController = require('../app/controllers/user_controller');
+var globalController = require('../app/controllers/global_controller');
 
 var router = express.Router();
 
 router.route('/')
   .get(homeController.getIndex)
   .post(passportConf.isAuthenticated, homeController.postUserPost);
+
+router.route('/browse')
+  .get(globalController.getBrowse);
+
+router.route('/community')
+  .get(globalController.getCommunity);
 
 router.route('/signup')
   .get(authController.getSignup)
