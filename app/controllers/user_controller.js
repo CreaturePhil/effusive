@@ -134,10 +134,18 @@ exports.getUserProfile = function(req, res, next) {
       return false;
     }
 
-    res.render('user/profile', {
-      title: user.username,
-      User: user,
-      findFollows: findFollows
+    Post.find({
+      '_id': { 
+        $in: user.posts
+      }
+    }, function(err, posts) {
+      if (err) return next(err);
+      res.render('user/profile', {
+        title: user.username,
+        User: user,
+        findFollows: findFollows,
+        posts: posts
+      });
     });
   }); 
 };

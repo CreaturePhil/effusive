@@ -17,17 +17,39 @@ exports.getIndex = function(req, res) {
       title: 'Home'
     });
   } else {
-    User.findById(req.user.id, function(err, user) {
-      if (err) return next(err);
+    req.user.following.push(req.user);
+
+    var users = [];
+    var posts = [];
+    var following = req.user.following;
+    var len = following.length;
+
+    while(len--) {
+      users.push(following[len].uid);
+    }
+
+    User.find({
+      'uid': {
+        $in: users
+      }
+    }, function(err, users) {
+      if (err) return next(err); 
+
+      len = users.length;
+
+      while(len--) {
+        posts = posts.concat(users[len].posts);
+      }
+
       Post.find({
-        '_id': { 
-          $in: user.posts
+        '_id': {
+          $in: posts
         }
       }, function(err, posts) {
         if (err) return next(err);
         res.render('dashboard', {
           title: 'Home',
-          posts: posts
+          posts: posts,
         });
       });
     });

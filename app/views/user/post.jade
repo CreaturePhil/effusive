@@ -19,7 +19,7 @@ block content
           p= post.body
       .row.text-right
         .col-md-12
-          if user.username === post.author
+          if user && user.username === post.author
             a(href="/#{post.author}/#{post.getHash()}/#{post.turl}/edit").text-muted edit
   h4 All #{post.comments.length} comments
   hr
@@ -47,5 +47,5 @@ block content
               p= comment.content
           .row.text-right
             .col-md-12
-              if user.uid === comment.aid
+              if user && user.uid === comment.aid
                 a(href="/#{post.author}/#{post.getHash()}/#{post.turl}/#{comment.cid}/edit").text-muted edit

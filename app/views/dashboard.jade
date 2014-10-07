@@ -1,9 +1,28 @@
 extends layout
 
 block content
-  if posts
-    ul
+  if posts.length >= 0
+    .page-header
+      h2
+        | Dashboard 
+        small (#{posts.length})
+    .list-group
       for post in posts
-        li
-          a(href="/#{post.author}/#{post.getHash()}/#{post.turl}")= post.title
-      
+        br
+        a.list-group-item(href="/#{post.author}/#{post.getHash()}/#{post.turl}")
+          .row
+            .col-md-2.text-center
+              img(src="" alt="User's profile avatar" width="100" height="100") 
+              h4.text-primary= post.author
+            .col-md-10
+              h3.list-group.item-heading.strong
+                strong= post.title
+              h6.text-muted 
+                | Posted #{moment(post.date).fromNow()}
+                | on #{moment(post.date).format('MMMM D, YYYY')}
+                if post.editDate
+                  | * (modified #{moment(post.editDate).fromNow()} on #{moment(post.editDate).format('MMMM D, YYYY')})
+              p.list-group-item-text= post.body.substr(0, 270) + (post.body.length >= 270 ? '...' : '')
+              h6.text-danger
+                mark= post.comments.length + ' Comments' 
+        

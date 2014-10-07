@@ -13,7 +13,7 @@ block content
         a(href="#{User.profile.website}")= User.profile.website
       if User.profile.bio
         p= User.profile.bio
-    if User.uid !== user.uid
+    if user && User.uid !== user.uid
       if findFollows(user, User)
         form(role="form" action="/#{User.username}/unfollow" method="post")
           input(type="hidden" name="_csrf" value=_csrf)
@@ -29,7 +29,7 @@ block content
     li.active
       a(href="#posts" data-toggle="tab")
         | Posts 
-        span.badge hi
+        span.badge #{User.posts.length}
     li
       a(href="#followers" data-toggle="tab")
         | Followers
@@ -41,7 +41,21 @@ block content
 
   .tab-content
     .tab-pane.fade.in.active#posts
-      p Hi
+      if posts.length > 0
+        .list-group
+          for post in posts
+            br
+            a.list-group-item(href="/#{post.author}/#{post.getHash()}/#{post.turl}")
+              h3.list-group.item-heading.strong
+                strong= post.title
+              h6.text-muted 
+                | Posted #{moment(post.date).fromNow()}
+                | on #{moment(post.date).format('MMMM D, YYYY')}
+                if post.editDate
+                  | * (modified #{moment(post.editDate).fromNow()} on #{moment(post.editDate).format('MMMM D, YYYY')})
+              p.list-group-item-text= post.body.substr(0, 270) + (post.body.length >= 270 ? '...' : '')
+              h6.text-danger
+                mark= post.comments.length + ' Comments' 
     .tab-pane.fade#followers
       if User.followers.length > 0
         .row
@@ -53,9 +67,9 @@ block content
                 h4= follower.username
       else
         br
-        h1.text-center You have no followers. :(
+        h1.text-center #{User.username} has no followers. :(
     .tab-pane.fade#following
-      if User.following.length > 0
+      if user && User.following.length > 0
         .row
         for following in User.following
             .col-md-2.text-center
@@ -65,4 +79,4 @@ block content
                 h4= following.username
       else
         br
-        h1.text-center You are not following anybody. :(
+        h1.text-center #{User.username} is not following anybody. :(
