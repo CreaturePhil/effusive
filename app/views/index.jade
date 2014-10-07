@@ -18,220 +18,23 @@ html
 
     include partials/navbar
     .intro-header
-      h1 Markus
+      h1 Effusive
       .row
         .col-md-8.col-md-offset-2
-          h3
-            | <a href="https://github.com/strongloop/express" target="_blank">Express'</a> 
-            | opinionated application generator and boilerplate for Node.js web applications. Inspired by 
-            | <a href="https://github.com/sahat/hackathon-starter" target="_blank">Hackathon Starter</a> 
-            | and 
-            | <a href="https://github.com/expressjs/generator" target="_blank">express-generator</a>.
-    .row
-      .col-md-8.col-md-offset-2.text-center
-        br
-        a(href="https://github.com/CreaturePhil/markus" target="_blank")
-          img(src="https://img.shields.io/npm/v/markus.svg" alt="NPM Version")
-          | &nbsp;&nbsp;
-        a(href="https://www.npmjs.org/package/markus" target="_blank")
-          img(src="https://img.shields.io/npm/dm/markus.svg" alt="NPM Downloads")
-          | &nbsp;&nbsp;
-        a(href="https://david-dm.org/creaturephil/markus" target="_blank")
-          img(src="https://david-dm.org/creaturephil/markus.svg" alt="Dependency Status")
-          | &nbsp;&nbsp;
-        a(href="https://travis-ci.org/CreaturePhil/markus" target="_blank")
-          img(src="https://travis-ci.org/CreaturePhil/markus.svg" alt="Build Status")
-          | &nbsp;&nbsp;
-        hr
-        h2 Quick Start
-        p The quickest way to get started with markus is to utilize the executable <strong>markus(1)</strong> to generate an application as shown below:
-
-        p Create the app:
-        .well.well-lg.
-          $ npm install -g markus<br>
-          $ markus myproject && cd myproject
-        p Install dependencies:
-        .well.well-lg $ npm install
-        p Run your app:
-        .well.well-lg $ npm start
-
-    .row
-      .col-md-8.col-md-offset-2
-        hr
-        h2.text-center Features
-        ul
-          li Local Authentication using Username, Email, and Password
-          li Flash notifications
-          li MVC Project Structure
-          li Bootstrap 3
-          li Account Management
-          li CSRF protection
-
-        hr
-        h2.text-center Project Structure
-        table.table.table-bordered
-          thead
-            tr
-              th Name
-              th Description
-          tbody
-            tr
-              td <strong>app/controllers/</strong>authentication_controller.js
-              td Controller for users signing up and logging in.
-            tr
-              td <strong>app/controllers/</strong>home_controller.js
-              td Controller for home page (index).
-            tr
-              td <strong>app/controllers/</strong>user_controller.js
-              td Controller for user account management.
-            tr
-              td <strong>app/models/</strong>User.js
-              td Mongoose schema and model for User.
-            tr
-              td <strong>app/views/authentication/</strong>
-              td Templates for signup, login, and password reset.
-            tr
-              td <strong>app/views/partials/</strong>flash.jade
-              td Error, info and success flash notifications.
-            tr
-              td <strong>app/views/partials/</strong>navigation.jade
-              td Navbar partial template.
-            tr
-              td <strong>app/views/user/</strong>
-              td Templates for user account management and profiles.
-            tr
-              td <strong>app/views/</strong>layout.jade
-              td Base template.
-            tr
-              td <strong>app/views/</strong>index.jade
-              td Home page template.
-            tr
-              td <strong>app/views/</strong>error.jade
-              td Error handling template.
-            tr
-              td <strong>bin/</strong>www
-              td Script that starts the server.
-            tr
-              td <strong>config/</strong>passport.js
-              td Passport Local strategies and login middleware.
-            tr
-              td <strong>config/</strong>routes.js
-              td All Application's routes.
-            tr
-              td <strong>public/</strong>
-              td Static assets (fonts, css, js, favicon).
-            tr
-              td <strong>tests/</strong>
-              td Unit tests.
-            tr
-              td gulpfile.js
-              td Streaming build system that concatentes css.
-            tr
-              td index.js
-              td Main application file.
-        hr
-        h2.text-center List of packages
-        table.table.table-bordered
-          thead
-            tr
-              th Package
-              th Description
-          tbody
-            tr
-              td async
-              td Utility library that provides asynchronous control flow.
-            tr
-              td bcrypt-nodejs
-              td Library for hashing and salting user passwords.
-            tr
-              td body-parser
-              td Node.js body parsing middleware.
-            tr
-              td compression
-              td Node.js compression middleware.
-            tr
-              td connect-mongo
-              td MongoDB session store for Express.
-            tr
-              td cookie-parser
-              td Cookie parsing middleware.
-            tr
-              td debug
-              td Tiny node.js debugging utility.
-            tr
-              td express
-              td Node.js web framework.
-            tr
-              td express-flash
-              td Flash message middleware
-            tr
-              td express-session
-              td Simple session middleware.
-            tr
-              td express-validator
-              td An express.js middleware for node-validator.
-            tr
-              td jade
-              td Template engine for Express.
-            tr
-              td lodash
-              td Handy JavaScript utlities library.
-            tr
-              td lusca
-              td CSRF middleware.
-            tr
-              td method-override
-              td Override HTTP verbs middleware.
-            tr
-              td mongoose
-              td MongoDB ODM.
-            tr
-              td morgan
-              td HTTP request logger middleware.
-            tr
-              td nodemailer
-              td Node.js library for sending emails.
-            tr
-              td passport
-              td Simple and elegant authentication library.
-            tr
-              td passport-local
-              td Sign-in with Username and Password plugin.
-            tr
-              td request
-              td Simplified HTTP request library.
-            tr
-              td serve-favicon
-              td Favicon serving middleware.
-            tr
-              td chai
-              td BDD/TDD assertion library.
-            tr
-              td gulp
-              td The streaming build system.
-            tr
-              td gulp-concat-css
-              td Concatenate css files, rebasing urls and inlining @import.
-            tr
-              td gulp-minify-css
-              td Minify css with clean-css.
-            tr
-              td mocha
-              td Test framework.
-            tr
-              td supertest
-              td HTTP assertion library.
-    hr
+          h3.
+            Open source socia media platform.
+          br
+          a(href="/signup")
+            btn.btn-primary.btn-lg Join now today
     .row
       .col-md-8.col-md-offset-2.text-center.text-muted
+        br
         p Designed and built with all the love in the world by <a href="https://twitter.com/CreaturePhil" target="_blank">@CreaturePhil</a>.
-        p Code licensed under <a href="https://github.com/CreaturePhil/markus/blob/master/LICENSE" target="_blank">MIT</a>.
+        p Code licensed under <a href="https://github.com/CreaturePhil/effusive/blob/master/LICENSE" target="_blank">MIT</a>.
         p.
-          <a href="https://github.com/creaturephil/markus">GitHub</a>
+          <a href="https://github.com/creaturephil/effusive">GitHub</a>
           &nbsp;&nbsp;-&nbsp;&nbsp;
-          <a href="https://github.com/creaturephil/markus/issues">Issues</a>
-          &nbsp;&nbsp;-&nbsp;&nbsp;
-          <a href="https://github.com/CreaturePhil/markus/releases">Releases</a>
+          <a href="https://github.com/creaturephil/effusive/issues">Issues</a>
 
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     script(src="/js/bootstrap.min.js")

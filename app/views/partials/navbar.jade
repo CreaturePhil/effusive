@@ -11,14 +11,12 @@
       ul.nav.navbar-nav
         li(class=title==='Home'?'active':undefined)
           a(href="/") Home
+        li(class=title==='About'?'active':undefined)
+          a(href="/about") About
         li(class=title==='Browse'?'active':undefined)
           a(href="/browse") Browse
         li(class=title==='Community'?'active':undefined)
           a(href="/community") Community
-        li(class=title==='About'?'active':undefined)
-          a(href="/about") About
-        li(class=title==='Contact'?'active':undefined)
-          a(href="/contact") Contact
         if user
           li
             button.btn.btn-primary.navbar-btn(data-toggle="modal" data-target="#postModal") Make a post

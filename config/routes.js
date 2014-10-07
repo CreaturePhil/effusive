@@ -11,6 +11,9 @@ router.route('/')
   .get(homeController.getIndex)
   .post(passportConf.isAuthenticated, homeController.postUserPost);
 
+router.route('/about')
+  .get(homeController.getAbout);
+
 router.route('/browse')
   .get(globalController.getBrowse);
 

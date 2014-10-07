@@ -83,3 +83,13 @@ exports.postUserPost = function(req, res, next) {
     });
   });
 };
+
+/**
+ * Route /about
+ * --------------------
+ */
+exports.getAbout = function(req, res, next) {
+  res.render('about', {
+    title: 'About'
+  });
+};
