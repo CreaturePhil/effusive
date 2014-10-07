@@ -42,7 +42,11 @@ router.route('/settings/delete')
   .post(passportConf.isAuthenticated, userController.postDeleteAccount);
 
 router.route('/:user')
-  .get(userController.getUserProfile);
+  .get(userController.getUserProfile)
+  .post(passportConf.isAuthenticated, userController.postFollowUser);
+
+router.route('/:user/unfollow')
+  .post(passportConf.isAuthenticated, userController.postUnfollowUser);
 
 router.route('/:user/:hash/:title')
   .get(userController.getUserPost)

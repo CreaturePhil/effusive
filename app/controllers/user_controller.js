@@ -122,9 +122,83 @@ exports.postDeleteAccount = function(req, res, next) {
 exports.getUserProfile = function(req, res, next) {
   User.findOne({ uid: req.params.user.toLowerCase() }, function(err, user) {
     if (err || !user) return next(err);
+
+    function findFollows(follower, following) {
+      var followings = follower.following;
+      var len = followings.length;
+      while(len--) {
+        if (followings[len].uid === following.uid) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     res.render('user/profile', {
       title: user.username,
-      User: user
+      User: user,
+      findFollows: findFollows
+    });
+  }); 
+};
+
+// Post follow user
+exports.postFollowUser = function(req, res, next) {
+  if (req.params.user.toLowerCase() === req.user.uid) res.redirect('/' + req.params.user);
+  User.findOne({ uid: req.params.user.toLowerCase() }, function(err, followUser) {
+    if (err || !followUser) return next(err);
+    User.findById(req.user.id, function(err, follower) {
+      if (err) return next(err);
+      followUser.followers.push({
+        avatar: req.user.profile.avatar || req.user.gravatar(),
+        uid: req.user.uid,
+        username: req.user.username
+      });
+      follower.following.push({
+        avatar: followUser.profile.avatar || followUser.gravatar(),
+        uid: followUser.uid,
+        username: followUser.username
+      });
+      followUser.save(function(err) {
+        if (err) next(err);
+        follower.save(function(err) {
+          if (err) next(err);
+          res.redirect('/' + req.params.user);
+        });
+      });
+    });
+  }); 
+};
+
+/**
+ * Route /:user/unfollow
+ * --------------------
+ */
+
+// Post unfollow user
+exports.postUnfollowUser = function(req, res, next) {
+  if (req.params.user.toLowerCase() === req.user.uid) res.redirect('/' + req.params.user);
+  User.findOne({ uid: req.params.user.toLowerCase() }, function(err, followUser) {
+    if (err || !followUser) return next(err);
+    User.findById(req.user.id, function(err, follower) {
+      if (err) return next(err);
+      followUser.followers.splice(followUser.followers.indexOf({
+        avatar: req.user.profile.avatar || req.user.gravatar(),
+        uid: req.user.uid,
+        username: req.user.username
+      }), 1);
+      follower.following.splice(follower.following.indexOf({
+        avatar: followUser.profile.avatar || followUser.gravatar(),
+        uid: followUser.uid,
+        username: followUser.username
+      }), 1);
+      followUser.save(function(err) {
+        if (err) next(err);
+        follower.save(function(err) {
+          if (err) next(err);
+          res.redirect('/' + req.params.user);
+        });
+      });
     });
   }); 
 };

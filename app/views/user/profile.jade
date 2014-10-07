@@ -7,9 +7,62 @@ block content
     .col-md-8
       h1= User.username
       h3 Joined on #{moment(User.joinDate).format('MMMM D, YYYY')}
-    if User.profile.location
-      h4 Location: #{User.profile.location}
-    if User.profile.location
-      a(href="#{User.profile.website}")= User.profile.website
-    if User.profile.bio
-      p= User.profile.bio
+      if User.profile.location
+        h4 Location: #{User.profile.location}
+      if User.profile.location
+        a(href="#{User.profile.website}")= User.profile.website
+      if User.profile.bio
+        p= User.profile.bio
+    if User.uid !== user.uid
+      if findFollows(user, User)
+        form(role="form" action="/#{User.username}/unfollow" method="post")
+          input(type="hidden" name="_csrf" value=_csrf)
+          .form-group
+            button.btn.btn-danger.pull-right(type="submit") Unfollow
+      else
+        form(role="form" method="post")
+          input(type="hidden" name="_csrf" value=_csrf)
+          .form-group
+            button.btn.btn-primary.pull-right(type="submit") Follow
+  hr
+  ul.nav.nav-pills.nav-justified
+    li.active
+      a(href="#posts" data-toggle="tab")
+        | Posts 
+        span.badge hi
+    li
+      a(href="#followers" data-toggle="tab")
+        | Followers
+        span.badge #{User.followers.length}
+    li
+      a(href="#following" data-toggle="tab")
+        | Following
+        span.badge #{User.following.length}
+
+  .tab-content
+    .tab-pane.fade.in.active#posts
+      p Hi
+    .tab-pane.fade#followers
+      if User.followers.length > 0
+        .row
+        for follower in User.followers
+            .col-md-2.text-center
+              br
+              a(href="/#{follower.username}")
+                img(src="#{follower.avatar}" alt="follower's avatar" height="100" width="100")
+                h4= follower.username
+      else
+        br
+        h1.text-center You have no followers. :(
+    .tab-pane.fade#following
+      if User.following.length > 0
+        .row
+        for following in User.following
+            .col-md-2.text-center
+              br
+              a(href="/#{following.username}")
+                img(src="#{following.avatar}" alt="following's avatar" height="100" width="100")
+                h4= following.username
+      else
+        br
+        h1.text-center You are not following anybody. :(

@@ -9,6 +9,8 @@ var userSchema = new mongoose.Schema({
   password: String,
   joinDate: Date,
   posts: [], // post's ids not hashes
+  followers: [{ avatar: String, uid: String, username: String }],
+  following: [{ avatar: String, uid: String, username: String }],
 
   profile: {
     bio: { type: String, default: '' },
