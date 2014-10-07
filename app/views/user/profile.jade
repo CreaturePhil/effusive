@@ -58,7 +58,7 @@ block content
                 mark= post.comments.length + ' Comments' 
       else
         br
-        h1.text-center #{User}'s has no posts.
+        h1.text-center #{User.username}'s has no posts.
     .tab-pane.fade#followers
       if User.followers.length > 0
         .row
