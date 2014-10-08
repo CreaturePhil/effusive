@@ -140,6 +140,9 @@ exports.getUserProfile = function(req, res, next) {
       }
     }, function(err, posts) {
       if (err) return next(err);
+      posts.sort(function(a, b) {
+        return b.date - a.date;
+      });
       res.render('user/profile', {
         title: user.username,
         User: user,

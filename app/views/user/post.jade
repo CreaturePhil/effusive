@@ -15,8 +15,7 @@ block content
           img(src="#{post.avatar}" alt="User's profile avatar" width="100" height="100") 
           h4
             a(href="/#{post.author}")= post.author
-        .col-md-10
-          p= post.body
+        .col-md-10!= marked(post.body)
       .row.text-right
         .col-md-12
           if user && user.username === post.author
@@ -44,7 +43,7 @@ block content
                 | Posted #{moment(comment.date).fromNow()} on #{moment(comment.date).format('MMMM D, YYYY')}
                 if comment.editDate
                   | * (modified #{moment(comment.editDate).fromNow()} on #{moment(comment.editDate).format('MMMM D, YYYY')})
-              p= comment.content
+              div!= marked(comment.content)
           .row.text-right
             .col-md-12
               if user && user.uid === comment.aid

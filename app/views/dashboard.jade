@@ -22,7 +22,7 @@ block content
                 | on #{moment(post.date).format('MMMM D, YYYY')}
                 if post.editDate
                   | * (modified #{moment(post.editDate).fromNow()} on #{moment(post.editDate).format('MMMM D, YYYY')})
-              p.list-group-item-text= post.body.substr(0, 270) + (post.body.length >= 270 ? '...' : '')
+              p.list-group-item-text!= marked(post.body.substr(0, 270)) + (post.body.length >= 270 ? '...' : '')
               h6.text-danger
                 mark= post.comments.length + ' ' + (post.comments.length === 1 ? 'Comment' : 'Comments')
   else

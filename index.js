@@ -16,11 +16,20 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var moment = require('moment');
+var marked = require('marked');
 
 var routes = require('./config/routes');
 var secrets = require('./config/secrets');
 
 var app = express();
+
+/**
+ * Set options for markdown.
+ */
+
+marked.setOptions({
+  sanitize: true 
+});
 
 /**
  * Connect to MongoDB.
@@ -67,7 +76,7 @@ app.use(passport.session());
 app.use(flash());
 
 // csrf whitelist
-var csrfExclude = ['/url1', '/url2'];
+var csrfExclude = [];
 app.use(function(req, res, next) {
   // CSRF protection.
   if (_.contains(csrfExclude, req.path)) return next();
@@ -80,6 +89,9 @@ app.use(function(req, res, next) {
 
   // Make moment object available in templates.
   res.locals.moment = moment;
+
+  // Make marked object available in templates.
+  res.locals.marked = marked;
   next();
 });
 

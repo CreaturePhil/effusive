@@ -16,6 +16,3 @@ block content
               | * (modified #{moment(post.editDate).fromNow()} on #{moment(post.editDate).format('MMMM D, YYYY')})
           h6.text-danger
             mark= post.comments.length + ' ' + (post.comments.length === 1 ? 'Comment' : 'Comments')
-  else
-    br
-    h1.text-center Somehow this is empty.
