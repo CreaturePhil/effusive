@@ -34,14 +34,6 @@ describe('GET /forgot_password', function() {
   });
 });
 
-describe('GET /about', function() {
-  it('should return 404', function(done) {
-    request(app)
-    .get('/about')
-    .expect(404, done);
-  });
-});
-
 describe('GET /contact', function() {
   it('should return 404', function(done) {
     request(app)
