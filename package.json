@@ -41,10 +41,12 @@
   },
   "devDependencies": {
     "chai": "~1.9.2",
+    "coveralls": "~2.11.2",
     "gulp": "~3.8.8",
     "gulp-concat-css": "~1.0.0",
     "gulp-minify-css": "~0.3.10",
     "mocha": "~1.21.4",
+    "mocha-lcov-reporter": "~0.0.1",
     "supertest": "~0.14.0"
   }
 }
