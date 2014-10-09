@@ -45,7 +45,7 @@ block content
         .list-group
           for post in posts
             br
-            a.list-group-item(href="/#{post.author}/#{post.getHash()}/#{post.turl}")
+            div.list-group-item.block-link(onclick="window.location='/#{post.author}/#{post.getHash()}/#{post.turl}';")
               h3.list-group.item-heading.strong
                 strong= post.title
               h6.text-muted 
