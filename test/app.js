@@ -46,8 +46,17 @@ describe('GET /forgot_password', function() {
   });
 });
 
-describe('GET /contact', function() {
+describe('GET /contact in development', function() {
   it('should return 404', function(done) {
+    request(app)
+    .get('/contact')
+    .expect(404, done);
+  });
+});
+
+describe('GET /contact in development', function() {
+  it('should return 404', function(done) {
+    app.set('env', 'production');
     request(app)
     .get('/contact')
     .expect(404, done);
@@ -58,14 +67,6 @@ describe('GET /community', function() {
   it('should return 200 OK', function(done) {
     request(app)
     .get('/community')
-    .expect(200, done);
-  });
-});
-
-describe('GET /admin', function() {
-  it('should return 200 OK', function(done) {
-    request(app)
-    .get('/admin')
     .expect(200, done);
   });
 });

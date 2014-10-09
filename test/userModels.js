@@ -1,25 +1,27 @@
 var chai = require('chai');
+var moment = require('moment');
 var should = chai.should();
 var User = require('../app/models/User');
 
-describe('User Model', function() {
+describe('user model', function() {
   it('should create a new user', function(done) {
     var user = new User({
       uid: 'tester',
-      username: 'Tester',
+      username: 'tester',
       email: 'test@gmail.com',
-      password: 'password'
+      password: 'password',
+      joinDate: moment()
     });
     user.save(function(err) {
       if (err) return done(err);
       done();
-    })
+    });
   });
 
   it('should not create a user with the unique username', function(done) {
     var user = new User({
       uid: 'tester',
-      username: 'TESTER',
+      username: 'tester',
       email: 'testchange@gmail.com',
       password: 'password'
     });
@@ -31,7 +33,7 @@ describe('User Model', function() {
 
   it('should not create a user with the unique email', function(done) {
     var user = new User({
-      username: 'Tester2',
+      username: 'tester2',
       email: 'test@gmail.com',
       password: 'password'
     });
