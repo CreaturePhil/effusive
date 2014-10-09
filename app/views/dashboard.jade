@@ -9,7 +9,7 @@ block content
     .list-group
       for post in posts
         br
-        a.list-group-item(href="/#{post.author}/#{post.getHash()}/#{post.turl}")
+        div.list-group-item.block-link(onclick="window.location='/#{post.author}/#{post.getHash()}/#{post.turl}';")
           .row
             .col-md-2.text-center
               img(src="#{post.avatar}" alt="User's profile avatar" width="100" height="100") 

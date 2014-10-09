@@ -26,3 +26,14 @@
   background: #2ecc71 no-repeat center center;
   background-size: cover;
 }
+
+.block-link {
+  cursor: pointer;
+}
+
+.block-link:hover,
+.block-link: focus {
+  color: #555;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
