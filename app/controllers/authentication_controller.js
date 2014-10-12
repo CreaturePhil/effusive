@@ -95,6 +95,12 @@ exports.postLogin = function(req, res, next) {
     return res.redirect('/login');
   }
 
+  if (req.body.remember) {
+    req.session.cookie.maxAge = 1000 * 60 * 60 * 24 * 30; // 30 days
+  } else {
+    req.session.cookie.expires = false;
+  }
+
   passport.authenticate('local', function(err, user, info) {
     if (err) return next(err);
     if (!user) {
@@ -104,7 +110,7 @@ exports.postLogin = function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) return next(err);
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
+      res.redirect('/');
     });
   })(req, res, next);
 };

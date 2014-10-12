@@ -54,7 +54,7 @@ describe('GET /contact in development', function() {
   });
 });
 
-describe('GET /contact in development', function() {
+describe('GET /contact in production', function() {
   it('should return 404', function(done) {
     app.set('env', 'production');
     request(app)

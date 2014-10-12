@@ -72,7 +72,7 @@ block content
         br
         h1.text-center #{User.username} has no followers. :(
     .tab-pane.fade#following
-      if user && User.following.length > 0
+      if User.following.length > 0
         .row
         for following in User.following
             .col-md-2.text-center

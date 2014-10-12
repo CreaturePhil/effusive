@@ -12,6 +12,11 @@ block content
         .form-group
           label Password
           input.form-control(type="password" name="password" required)
-        a(href="/forgot_password") Forgot your password?
+        .form-group
+          .checkbox
+            label
+              input(type="checkbox" name="remember")
+              | Remember Me
+            a.pull-right(href="/forgot_password") Forgot your password?
         .form-group
           button.btn.btn-primary.center-block(type="submit") Login

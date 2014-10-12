@@ -67,6 +67,7 @@ describe('user model', function() {
     User.findOne({ email: 'test@gmail.com' }, function(err, user) {
       if (err) return done(err);
       user.gravatar();
+      user.gravatar(60);
       user.comparePassword('password', function(err, isMatch) {
         isMatch.should.equal(true);
         done();
