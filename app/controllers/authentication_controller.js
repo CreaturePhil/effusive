@@ -45,7 +45,7 @@ exports.postSignup = function(req, res, next) {
 
   if (secrets.banUsernames.indexOf(user.uid) >= 0) {
     req.flash('errors', { msg: 'Your username cannot be called that.' })
-    return res.redirect('signup');
+    return res.redirect('/signup');
   }
 
   User.findOne({ email: req.body.email }, function(err, existingUser) {
